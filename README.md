@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 
 ## Demo
 
-https://react-password-generator-vite.vercel.app/
+https://react-vite-password-validation.vercel.app/
 
 ## 🧞 Download or Fork the repo and use the commands below
 
