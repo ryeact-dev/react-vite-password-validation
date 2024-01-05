@@ -1,0 +1,154 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #219ebc;
+  --orange: #df4e15;
+  --secondary: #339107;
+  --text: #1f2346;
+  --white: #d4dbe5;
+  --red: #961616;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--primary);
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  position: relative;
+  width: 450px;
+  height: 400px;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: height 0.6s ease;
+}
+.container h2 {
+  font-weight: 600;
+  font-size: 1.31rem;
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid var(--white);
+}
+
+.wrapper {
+  margin: 1.25rem 1.75rem;
+}
+.wrapper .generate-btn {
+  width: 100%;
+  color: var(--white);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.06rem;
+  padding: 0.94rem 0;
+  border-radius: 5px;
+  text-transform: uppercase;
+  margin: 0.94rem 0 1.3rem;
+}
+
+/* Inputs */
+.input_wrapper {
+  position: relative;
+  padding: 15px 0 0;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.input_field {
+  font-size: 1.5rem;
+  color: var(--text);
+  padding: 6px 0px;
+  padding-right: 32px;
+  padding-bottom: 8px;
+  line-height: 2rem;
+  height: 2rem;
+  outline: 0px;
+  border: 0px;
+  width: 100%;
+  vertical-align: middle;
+  padding-bottom: 0.2rem;
+  border-bottom: 3px solid var(--text);
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.input_field::placeholder {
+  color: transparent;
+}
+
+.input_label {
+  user-select: none;
+}
+
+.input_field:placeholder-shown ~ .input_label {
+  cursor: text;
+  color: var(--text);
+  top: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.input_label,
+.input_field:focus ~ .input_label {
+  position: absolute;
+  top: -0.8rem;
+  display: block;
+  font-size: 1.1rem;
+  color: var(--text);
+  transition: 0.3s;
+}
+
+.input_field:focus ~ .input_label {
+  color: var(--orange);
+}
+
+.input_field:focus {
+  border-bottom: 3px solid var(--orange);
+}
+
+.input_field:focus ~ svg {
+  stroke: var(--orange);
+}
+
+.input_icon {
+  position: absolute;
+  right: -14px;
+  bottom: -5px;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  cursor: pointer;
+}
+/* password requirement */
+.requirement_met {
+  color: var(--secondary);
+  text-decoration: line-through;
+}
+.password_requirement {
+  padding: 10px 0 24px 0;
+}
+
+/* password match */
+.wrapper p span.password_match {
+  color: var(--secondary);
+}
+.wrapper p span.password_not_match {
+  color: var(--red);
+}
