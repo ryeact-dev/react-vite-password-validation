@@ -1,55 +1,81 @@
+import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import style from './App.module.css';
+import { PASSWORD_REQUIREMENTS } from './utils/regex';
+import { userSchema } from './utils/validationSchedma';
 
-const PASSWORD_REQUIREMENTS = [
-  { id: 1, text: '• At least 8 characters', regex: /.{8,}/ },
-  { id: 2, text: '• At least 1 uppercase letter', regex: /[A-Z]/ },
-  {
-    id: 3,
-    text: '• At least 4 numbers',
-    regex: /^(?=(?:.*\d){4}).*$/,
-  },
-  {
-    id: 4,
-    text: '• At least 1 symbol',
-    regex: /(?=.*[-+_!@#$%^&*.,?])/,
-  },
-];
+const INITIAL_DATA = {
+  email: '',
+  age: '',
+  new_password: '',
+  confirm_password: '',
+};
 
 export default function App() {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [openNewPassword, setOpenNewPassword] = useState(false);
   const [openConfirmPassword, setOpenConfirmPassword] = useState(false);
   const [requirements, setRequirements] = useState(PASSWORD_REQUIREMENTS);
+
+  const formik = useFormik({
+    initialValues: INITIAL_DATA,
+    validationSchema: userSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+  const { getFieldProps, values, errors } = formik;
 
   useEffect(() => {
     setRequirements(
       PASSWORD_REQUIREMENTS.map((req) => ({
         ...req,
-        met: req.regex.test(newPassword),
+        met: req.regex.test(values.new_password),
       }))
     );
-  }, [newPassword]);
+  }, [values.new_password]);
 
-  const height = !newPassword ? '310px' : !confirmPassword ? '380px' : '400px';
-  const opacity = !newPassword ? '0' : '1';
+  const height = !values.new_password
+    ? '420px'
+    : !values.confirm_password
+    ? '500px'
+    : '520px';
+  const opacity = !values.new_password ? '0' : '1';
+
+  console.log(errors);
 
   return (
     <div className={style.container} style={{ height }}>
-      <h2>Password Validation</h2>
-      <div className={style.wrapper}>
+      <form className={style.wrapper}>
+        <h2>Form Validation</h2>
         <div className={style.input_wrapper}>
           <input
+            {...getFieldProps('email')}
+            placeholder='email'
+            className={style.input_field}
+          />
+          <label htmlFor='email' className={style.input_label}>
+            Email
+          </label>
+        </div>
+        <div className={style.input_wrapper}>
+          <input
+            {...getFieldProps('age')}
+            className={style.input_field}
+            placeholder='age'
+          />
+          <label htmlFor='age' className={style.input_label}>
+            Age
+          </label>
+        </div>
+        <div className={style.input_wrapper}>
+          <input
+            {...getFieldProps('new_password')}
             type={openNewPassword ? 'text' : 'password'}
-            id='new-password'
-            name='new-password'
             className={style.input_field}
             placeholder='New password'
-            onChange={(evt) => setNewPassword(evt.target.value)}
-            required
           />
-          <label htmlFor='new-password' className={style.input_label}>
+          <label htmlFor='new_password' className={style.input_label}>
             New password
           </label>
           {!openNewPassword ? (
@@ -112,14 +138,12 @@ export default function App() {
             }}
           >
             <input
-              id='confirm-password'
               type={openConfirmPassword ? 'text' : 'password'}
+              {...getFieldProps('confirm_password')}
               className={style.input_field}
               placeholder='Confirm Password'
-              onChange={(evt) => setConfirmPassword(evt.target.value)}
-              required
             />
-            <label htmlFor='confirm-password' className={style.input_label}>
+            <label htmlFor='confirm_password' className={style.input_label}>
               Confirm password
             </label>
             {!openConfirmPassword ? (
@@ -161,19 +185,21 @@ export default function App() {
               </svg>
             )}
           </div>
-          {!!confirmPassword.trim() && (
+          {values.confirm_password && (
             <p>
-              {newPassword === confirmPassword ? (
+              {values.new_password === values.confirm_password ? (
                 <span className={style.password_match}>Password match</span>
               ) : (
-                <span className={style.password_not_match}>
-                  Password not match
-                </span>
+                values.new_password && (
+                  <span className={style.password_not_match}>
+                    Password not match
+                  </span>
+                )
               )}
             </p>
           )}
         </>
-      </div>
+      </form>
     </div>
   );
 }
