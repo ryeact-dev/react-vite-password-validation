@@ -24,7 +24,7 @@ export const ReactTSParticles = () => {
   }, []);
 
   const particlesLoaded = (container) => {
-    console.log(container);
+    // console.log(container);
   };
 
   return (

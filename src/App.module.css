@@ -32,7 +32,7 @@ ul {
 .container {
   position: relative;
   width: 450px;
-  height: 630px;
+  /* height: 630px; */
   padding: 20px;
   background: var(--white);
   border-radius: 16px;
@@ -163,7 +163,28 @@ ul {
   opacity: 90%;
 }
 
+/* submitted user info  */
+.user_info_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
+}
+.user_info_wrapper p {
+  font-size: large;
+}
+
 /* Loader */
+.loader_wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .loader {
   font-size: 30px;
   color: var(--text);
