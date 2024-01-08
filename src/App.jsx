@@ -39,6 +39,7 @@ export default function App() {
     <div onSubmit={handleSubmit} className={style.container}>
       <form className={style.wrapper}>
         <h2>Form Validation</h2>
+        <span className={style.loader}>Submitting</span>
         <div className={style.input_wrapper}>
           <input
             {...getFieldProps('email')}

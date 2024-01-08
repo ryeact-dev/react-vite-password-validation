@@ -162,3 +162,26 @@ ul {
 .wrapper button:hover {
   opacity: 90%;
 }
+
+/* Loader */
+.loader {
+  font-size: 30px;
+  color: var(--text);
+  display: inline-block;
+  font-weight: 500;
+  position: relative;
+}
+.loader:after {
+  content: '';
+  height: 4px;
+  width: 0%;
+  display: block;
+  background: var(--blue);
+  animation: 5s lineGrow linear infinite;
+}
+
+@keyframes lineGrow {
+  to {
+    width: 100%;
+  }
+}
