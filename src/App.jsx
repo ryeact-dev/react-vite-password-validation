@@ -24,7 +24,7 @@ export default function App() {
     },
   });
 
-  const { getFieldProps, values, errors, touched } = formik;
+  const { getFieldProps, handleSubmit, values, errors, touched } = formik;
 
   useEffect(() => {
     setRequirements(
@@ -35,10 +35,8 @@ export default function App() {
     );
   }, [values.new_password]);
 
-  console.log(errors);
-
   return (
-    <div className={style.container}>
+    <div onSubmit={handleSubmit} className={style.container}>
       <form className={style.wrapper}>
         <h2>Form Validation</h2>
         <div className={style.input_wrapper}>
@@ -182,19 +180,23 @@ export default function App() {
             )}
           </div>
           {values.confirm_password && (
-            <p className={style.password_error}>
+            <p className={style.password_match_wrapper}>
               {values.new_password === values.confirm_password ? (
-                <span className={style.password_match}>Password match</span>
+                <span className={style.password_match}>Passwords match</span>
               ) : (
                 (values.new_password || values.confirm_password) && (
                   <span className={style.password_not_match}>
-                    Password not match
+                    Passwords not match
                   </span>
                 )
               )}
             </p>
           )}
         </>
+        <p className={style.password_error}>
+          {errors.new_password && touched.new_password && errors.new_password}
+        </p>
+        <button type='submit'>Submit</button>
       </form>
     </div>
   );

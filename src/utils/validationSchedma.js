@@ -14,9 +14,9 @@ export const userSchema = yup.object().shape({
     .required('Age must not be empty'),
   new_password: yup
     .string()
-    .min(8)
+    .min(8, 'Password requirements not met')
     .matches(passwordRules, {
-      message: 'requirements not met',
+      message: 'Password requirements not met',
     })
     .required('Password is required'),
   confirm_password: yup
