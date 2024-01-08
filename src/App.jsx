@@ -1,8 +1,8 @@
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import style from './App.module.css';
 import { PASSWORD_REQUIREMENTS } from './utils/regex';
 import { userSchema } from './utils/validationSchedma';
+import style from './App.module.css';
 
 const INITIAL_DATA = {
   email: '',
@@ -24,7 +24,7 @@ export default function App() {
     },
   });
 
-  const { getFieldProps, values, errors } = formik;
+  const { getFieldProps, values, errors, touched } = formik;
 
   useEffect(() => {
     setRequirements(
@@ -35,38 +35,39 @@ export default function App() {
     );
   }, [values.new_password]);
 
-  const height = !values.new_password
-    ? '420px'
-    : !values.confirm_password
-    ? '500px'
-    : '520px';
-  const opacity = !values.new_password ? '0' : '1';
-
   console.log(errors);
 
   return (
-    <div className={style.container} style={{ height }}>
+    <div className={style.container}>
       <form className={style.wrapper}>
         <h2>Form Validation</h2>
         <div className={style.input_wrapper}>
           <input
             {...getFieldProps('email')}
             placeholder='email'
+            name='email'
             className={style.input_field}
           />
           <label htmlFor='email' className={style.input_label}>
             Email
           </label>
+          <p className={style.error_text}>
+            {errors.email && touched.email && errors.email}
+          </p>
         </div>
         <div className={style.input_wrapper}>
           <input
             {...getFieldProps('age')}
             className={style.input_field}
             placeholder='age'
+            name='age'
           />
           <label htmlFor='age' className={style.input_label}>
             Age
           </label>
+          <p className={style.error_text}>
+            {errors.age && touched.age && errors.age}
+          </p>
         </div>
         <div className={style.input_wrapper}>
           <input
@@ -74,6 +75,7 @@ export default function App() {
             type={openNewPassword ? 'text' : 'password'}
             className={style.input_field}
             placeholder='New password'
+            name='new_password'
           />
           <label htmlFor='new_password' className={style.input_label}>
             New password
@@ -128,20 +130,14 @@ export default function App() {
             </li>
           ))}
         </ul>
-
         <>
-          <div
-            className={style.input_wrapper}
-            style={{
-              opacity,
-              visibility: opacity === '1' ? 'visible' : 'hidden',
-            }}
-          >
+          <div className={style.input_wrapper}>
             <input
               type={openConfirmPassword ? 'text' : 'password'}
               {...getFieldProps('confirm_password')}
               className={style.input_field}
               placeholder='Confirm Password'
+              name='confirm_password'
             />
             <label htmlFor='confirm_password' className={style.input_label}>
               Confirm password
@@ -186,11 +182,11 @@ export default function App() {
             )}
           </div>
           {values.confirm_password && (
-            <p>
+            <p className={style.password_error}>
               {values.new_password === values.confirm_password ? (
                 <span className={style.password_match}>Password match</span>
               ) : (
-                values.new_password && (
+                (values.new_password || values.confirm_password) && (
                   <span className={style.password_not_match}>
                     Password not match
                   </span>

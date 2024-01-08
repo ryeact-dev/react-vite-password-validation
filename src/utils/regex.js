@@ -12,7 +12,3 @@ export const PASSWORD_REQUIREMENTS = [
     regex: /(?=.*[-+_!@#$%^&*.,?])/,
   },
 ];
-
-export const ONLY_LETTERS = /^[A-Za-z]+$/i;
-
-export const ONLY_NUMBERS = /^[0-9]+$/;
