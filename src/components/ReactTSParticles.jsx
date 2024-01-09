@@ -30,7 +30,7 @@ export const ReactTSParticles = () => {
   return (
     init && (
       <Particles
-        style={{ position: 'absolute', top: 0, left: 0, zIndex: -1 }}
+        style={{ position: 'absolute', top: 0, left: 0, zIndex: 0 }}
         id='tsparticles'
         particlesLoaded={particlesLoaded}
         options={{

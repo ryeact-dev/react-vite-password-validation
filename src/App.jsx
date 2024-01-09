@@ -48,7 +48,6 @@ export default function App() {
 
   return (
     <>
-      <ReactTSParticles />
       <div className={style.container} style={{ height }}>
         {isLoading && (
           <div className={style.loader_wrapper}>
